@@ -1,6 +1,7 @@
 # yebox_interview
 
 A new Flutter project.
+This Application is a football based project that gets the club with the most wins in the last 30 days in Bundesliga.
 
 ## Getting Started
 
