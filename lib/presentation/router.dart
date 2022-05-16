@@ -1,8 +1,8 @@
 
 import 'package:page_transition/page_transition.dart';
+import 'package:yebox_interview/presentation/ui/base.dart';
 
 import '../data/constants/route_constants.dart';
-import 'Base/index.dart';
 
 class CustomRouter {
   CustomRouter._();
