@@ -24,7 +24,7 @@ class _BaseState extends State<Base> {
     super.initState();
   }
   void getMatches()async{
-    clubDetails = await getItInstance<ApiServiceImpl>().getMatches();
+     clubDetails= await getItInstance<ApiServiceImpl>().getMatches();
     setState(() {
       isLoading=false;
     });
@@ -38,13 +38,28 @@ class _BaseState extends State<Base> {
         alignment: Alignment.center,
         padding: const EdgeInsets.symmetric(horizontal: Sizes.dimen_25),
       child: isLoading? const CircularProgressIndicator()
-          :clubDetails==null? const SizedBox(
+          :clubDetails==null? SizedBox(
           height: double.infinity,
           width: double.infinity,
-          child: Center(
-            child: Text(
-              'Cannot get data'
-            ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CardWidget(borderRadius: Sizes.dimen_20,
+                  height: Sizes.dimen_150,
+                  width: Sizes.dimen_150,
+                  margin: const EdgeInsets.only(bottom: Sizes.dimen_30,),
+                  child: Image.asset(Assets.error)
+              ),
+              Text(
+                'Oops! \nCannot get data',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    color: Colors.red.shade800,
+                    fontSize: Sizes.dimen_22
+                ),
+              ),
+            ],
           )
       ): Column(
         children: [
