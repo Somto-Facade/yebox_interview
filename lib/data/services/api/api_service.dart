@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:yebox_interview/data/constants/api_constants.dart';
 import 'package:http/http.dart' as http;
@@ -47,7 +46,6 @@ class ApiServiceImpl extends ApiService {
         a.winNumber != b.winNumber ? a.winNumber.compareTo(b.winNumber) : b
             .clubId.compareTo(a.clubId));
         TeamDataRes? teamDataRes = await getTeamData(clubId: clubsWithWins[0].clubId);
-        debugPrint(teamDataRes!.name);
         return teamDataRes;
       } else if (response.statusCode == 422) {
         List<dynamic> errors =
@@ -59,16 +57,13 @@ class ApiServiceImpl extends ApiService {
           List<dynamic> errorsForItem = decodedResponse["errors"][errorItem];
           return errorsForItem.join(" ");
         }).toList();
-        debugPrint(errors.join("\n"));
         getItInstance<DialogServicesImpl>().errorMessageDialog(errorMessage: errors.join("\n"));
         return null;
       } else {
-        debugPrint('wahala dey');
         getItInstance<DialogServicesImpl>().errorMessageDialog(errorMessage: 'Sorry, \nCannot get matches data');
         return null;
       }
     }catch(e){
-      debugPrint(e.toString());
       getItInstance<DialogServicesImpl>().errorMessageDialog(errorMessage: 'Sorry, \nCannot get matches data');
       return null;
     }
@@ -81,7 +76,6 @@ class ApiServiceImpl extends ApiService {
       http.Response response = await http.get(Uri.parse(url), headers: {
         "X-Auth-Token": ApiConstants.apiKey
       });
-      debugPrint(response.body);
       Map<String, dynamic> decodedResponse = json.decode(response.body);
       if (response.statusCode == 200) {
         TeamDataRes teamDataRes = TeamDataRes.fromMap(decodedResponse);
@@ -92,11 +86,9 @@ class ApiServiceImpl extends ApiService {
           List<dynamic> errorsForItem = decodedResponse["errors"][errorItem];
           return errorsForItem.join(" ");
         }).toList();
-        debugPrint(errors.join("\n"));
         getItInstance<DialogServicesImpl>().errorMessageDialog(errorMessage: errors.join("\n"));
         return null;
       } else {
-        debugPrint('wahala dey');
         getItInstance<DialogServicesImpl>().errorMessageDialog(errorMessage: 'Sorry, \nCannot get team data');
         return null;
       }
